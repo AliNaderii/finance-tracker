@@ -31,3 +31,7 @@ ul {
   background: #271f97;
   color: #fff;
 }
+
+a {
+  text-decoration: none;
+}
