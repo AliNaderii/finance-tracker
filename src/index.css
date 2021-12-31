@@ -35,3 +35,19 @@ ul {
 a {
   text-decoration: none;
 }
+
+.message {
+  padding: 5px 10px;
+  margin-bottom: 25px;
+  border-radius: 5px;
+}
+
+.message.pending {
+  background-color: #271f97;
+  color: #fff;
+}
+
+.message.error {
+  background-color: red;
+  color: #fff;
+}
