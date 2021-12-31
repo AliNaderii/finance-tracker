@@ -10,14 +10,13 @@ export default function Signup() {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ displayName, setDisplayName ] = useState('');
-
   // signup hook
   const { signup, error, isPending } = useSignup();
 
   // submit function
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(email, password, displayName);
+    // signup the user
     signup(email, password, displayName);
   };
 
@@ -57,7 +56,8 @@ export default function Signup() {
       { isPending && <p className='message pending'>Please wait a moment ...</p> }
       { error && <p className='message error'>{ error }</p> }
       {/* submit button */ }
-      <button className='btn'>Signup</button>
+      { !isPending && <button className='btn'>Signup</button> }
+      { isPending && <button className='btn' disabled>Signup</button> }
     </form>
   );
 }
