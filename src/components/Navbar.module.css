@@ -5,6 +5,11 @@
   padding: 20px 10px;
   box-sizing: border-box;
 }
+
+.navbar p {
+  margin-right: 25px;
+}
+
 .navbar ul {
   display: flex;
   margin: 0 auto;

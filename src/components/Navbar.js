@@ -28,7 +28,16 @@ export default function Navbar() {
 
         {/* if a user was logged in show the logout button */ }
         { user &&
-          <button onClick={ handleClick }>Logout</button> }
+          <>
+            <li>
+              <p>Hello, { user.displayName }</p>
+            </li>
+            <li>
+              <button onClick={ handleClick }>Logout</button>
+            </li>
+          </>
+        }
+
         {/* if there was no user show the login and signup buttons */ }
         { !user && <li>
           <Link to='/login' className='btn'>Login</Link>

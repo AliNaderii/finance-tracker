@@ -1,61 +1,44 @@
 // tools
-import { useState } from 'react';
+import { useCollection } from '../../hooks/useCollection';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useFirestore } from '../../hooks/useFirestore';
 
-// styles
+// styles && components
 import styles from './Home.module.css';
+import TransactionForm from './TransactionForm';
 
 export default function Home() {
-  // form states
-  const [ name, setName ] = useState('');
-  const [ amount, setAmount ] = useState('');
-
-  // submit transaction form
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ name, amount });
-  };
+  // useAuthContext hook
+  const { user } = useAuthContext();
+  // firestore query params
+  const query = [ 'uid', '==', user.uid ];
+  const orderBy = [ 'createdAt', 'desc' ];
+  // useCollection hook
+  const { documents, error } = useCollection('transaction', query, orderBy);
+  // useFirestore hook
+  const { deleteDoc } = useFirestore('transaction');
 
   return (
     <div className={ styles.container }>
       <div>
-        <div className={ styles.transaction }>
-          <p>New Dress for Peach</p>
-          <p>$150</p>
-        </div>
-        <div className={ styles.transaction }>
-          <p>New Dress for Peach</p>
-          <p>$150</p>
-        </div>
-        <div className={ styles.transaction }>
-          <p>New Dress for Peach</p>
-          <p>$150</p>
-        </div>
+        { documents &&
+          documents.map(doc => (
+            <div className={ styles.transaction } key={ doc.id }>
+              <button onClick={ () => deleteDoc(doc.id) }>X</button>
+              <p>{ doc.name }</p>
+              <p>{ doc.amount } $</p>
+            </div>
+          ))
+        }
+        {/* if there was an error */ }
+        { error && <p className='message error'>{ error }</p> }
       </div>
       {/* adding transaction form */ }
-      <form className={ styles[ 'transaction-form' ] } onSubmit={ handleSubmit }>
-        <h3>Add transaction</h3>
-        {/* transaction name input */ }
-        <label>
-          <span>Transaction Name</span>
-          <input
-            type="text"
-            required
-            onChange={ (e) => setName(e.target.value) }
-            value={ name }
-          />
-        </label>
-        {/* transaction amount input */ }
-        <label>
-          <span>Amount ($)</span>
-          <input
-            type="text"
-            required
-            onChange={ (e) => setAmount(e.target.value) }
-            value={ amount }
-          />
-        </label>
-        <button>Add Transaction</button>
-      </form>
+      <div>
+        { documents &&
+          <TransactionForm uid={ user.uid } />
+        }
+      </div>
     </div>
   );
 }
