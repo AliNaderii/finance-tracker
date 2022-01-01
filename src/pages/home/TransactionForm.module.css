@@ -1,0 +1,36 @@
+.transaction-form {
+  background-color: #271f97;
+  color: #fff;
+  border-radius: 10px;
+  padding: 20px 20px 30px 20px;
+}
+
+.transaction-form span {
+  display: block;
+  margin: 10px 0;
+}
+
+.transaction-form input {
+  padding: 10px 5px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.transaction-form button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px 5px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: #271f97;
+  color: #fff;
+  font-size: 1em;
+}
+
+.transaction-form button:hover {
+  background-color: #fff;
+  color: #271f97;
+}
